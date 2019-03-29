@@ -1,7 +1,7 @@
 FROM debian:9-slim
 
-LABEL "com.github.actions.name"="Check Irssi" \
-      "com.github.actions.description"="Checks Irssi C code" \
+LABEL "com.github.actions.name"="Check Irssi Scripts" \
+      "com.github.actions.description"="Checks Irssi Scripts" \
       "com.github.actions.icon"="server" \
       "com.github.actions.color"="gray-dark" \
 \
@@ -13,20 +13,28 @@ RUN apt-get update \
 	&& apt-get install -y --no-install-recommends \
 		ca-certificates \
 		git \
-		autoconf \
-		automake \
-		libtool \
-		make \
+		zsh \
+		wget \
+		gnupg \
 		\
-		libglib2.0-dev \
-		libperl-dev \
-		libtinfo-dev \
-		libssl-dev \
-		libotr5-dev \
-		libutf8proc-dev \
+		build-essential \
+		cpanminus \
+		\
+		liblwp-protocol-https-perl \
+		libglib2.0-0 \
+		libutf8proc2 \
+		libotr5 \
 	&& rm -rf /var/lib/apt/lists/*
+
+ADD cpanfile /cpan/cpanfile
+
+ENV PERL_MM_NONINTERACTIVE="1"
+
+RUN cpanm --quiet --installdeps --notest /cpan \
+	&& rm -fr /root/.cpanm
+
+ADD docker-irssi.dpkg.cfg /etc/dpkg/dpkg.cfg.d/docker-irssi
 
 ADD entrypoint.sh /entrypoint.sh
 ADD runner.pl /runner.pl
-ADD render.pl /tools/render.pl
 ENTRYPOINT ["/entrypoint.sh"]
