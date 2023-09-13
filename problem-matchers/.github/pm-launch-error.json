@@ -1,0 +1,13 @@
+{
+  "problemMatcher": [
+    {
+      "owner": "irssi-launch-error",
+      "pattern": [
+	{
+	  "regexp": "^[*] -!- Irssi: (Error .*)$",
+	  "message": 1,
+	}
+      ]
+    }
+  ]
+}
