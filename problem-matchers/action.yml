@@ -2,7 +2,7 @@ name: 'Irssi Problem Matcher'
 author: 'The Irssi team'
 description: 'Annotate PRs with compiler warnings from Github actions output'
 runs:
-  using: 'node16'
+  using: 'node20'
   main: 'index.js'
 branding:
   icon: 'check-circle'
