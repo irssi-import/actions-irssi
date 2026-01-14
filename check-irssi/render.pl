@@ -1,7 +1,4 @@
-#!/bin/sh
 #! -*-perl-*-
-eval 'exec perl -C -x -wS $0 ${1+"$@"}'
-    if 0;
 use strict;
 use warnings;
 use utf8;
